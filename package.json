@@ -1,0 +1,23 @@
+{
+  "name": "integration-test",
+  "version": "1.0.0",
+  "description": "Integration tests for Semantiro",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "api-tests-local": "newman run tests/LocalDev.postmancollection.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgkabir/integration-test.git"
+  },
+  "author": "Mohammad Kabir",
+  "bugs": {
+    "url": "https://github.com/mgkabir/integration-test/issues"
+  },
+  "homepage": "https://github.com/mgkabir/integration-test#readme",
+  "dependencies": {
+    "newman": "^3.10.0"
+  }
+}
