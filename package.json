@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "api-tests-local": "newman run tests/LocalDev.postmancollection.json"
+    "api-tests-local": "newman run tests/LocalDev.postman_collection.json"
   },
   "repository": {
     "type": "git",
