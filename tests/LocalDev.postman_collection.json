@@ -70,10 +70,10 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8083/api/sso/login",
+					"raw": "http://dev3-app:8083/api/sso/login",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"dev3-app"
 					],
 					"port": "8083",
 					"path": [
@@ -153,10 +153,10 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8083/api/sso/login",
+					"raw": "http://dev3-app:8083/api/sso/login",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"dev3-app"
 					],
 					"port": "8083",
 					"path": [
@@ -223,10 +223,10 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8082/ontology/list",
+					"raw": "http://dev3-app:8082/ontology/list",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"dev3-app"
 					],
 					"port": "8082",
 					"path": [
