@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "37390d83-8ada-497a-bbb4-3089888ed501",
+		"name": "LocalDev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LoginRequestToFail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38f08b2c-bfc7-4b67-a038-49aa8be47e02",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Response body does not generate Token \", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9dbcfe72-6e69-43d3-bd62-2bc2ea6535cb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "mkabir@semanticsoftware.com.au",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "wrongPass",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/sso/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"sso",
+						"login"
+					]
+				},
+				"description": "login and sets token in global scope "
+			},
+			"response": []
+		},
+		{
+			"name": "LoginToPass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33af875d-cbe1-4c88-a25e-2b11ba8864a4",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body has the generated Token \", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"token\");",
+							"});",
+							"",
+							"/*sets the token to be used by subsequent tests */",
+							"pm.environment.set(\"jwt_token\", pm.response.json().token);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "434e4c22-63b8-4900-a2e4-24909d632ca8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "mkabir@semanticsoftware.com.au",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Abcd1234",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/sso/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"sso",
+						"login"
+					]
+				},
+				"description": "login and sets token in global scope "
+			},
+			"response": []
+		},
+		{
+			"name": "OntolistList",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e63a2e9e-735a-4857-a78a-253593930853",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e3514c4-a75b-45cd-a2de-d030917ca38c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Ontology list has some items\", function () {",
+							"    console.log(pm.response.json().total);",
+							"    pm.expect(pm.response.json().total).to.be.above(0);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/ontology/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"ontology",
+						"list"
+					]
+				},
+				"description": "uses token generated in previous login step"
+			},
+			"response": []
+		}
+	]
+}
